@@ -1,0 +1,11 @@
+---
+- name: dns | install dnsmasq
+  apt: name=dnsmasq update_cache=yes cache_valid_time=86400
+
+- name: dns | configure dnsmasq
+  template: src=dnsmasq.conf dest=/etc/dnsmasq.d/10-{{ consul_service_name }}
+  register: dnsmasq_config_result
+
+- name: dns | restart dnsmasq
+  service: name=dnsmasq state=restarted
+  when: dnsmasq_config_result.changed

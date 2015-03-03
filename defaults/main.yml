@@ -1,0 +1,44 @@
+---
+# defaults file for chatid.consul
+consul_version: 0.5.0
+consul_archive: "{{ consul_version }}_linux_amd64.zip"
+consul_archive_sha256sum: 161f2a8803e31550bd92a00e95a3a517aa949714c19d3124c46e56cfdc97b088
+consul_ui_archive: "{{ consul_version }}_web_ui.zip"
+consul_ui_archive_sha256sum: 0081d08be9c0b1172939e92af5a7cf9ba4f90e54fae24a353299503b24bb8be9
+consul_download: "https://dl.bintray.com/mitchellh/consul/{{ consul_archive }}"
+consul_ui_download: "https://dl.bintray.com/mitchellh/consul/{{ consul_ui_archive }}"
+
+consul_service_name: consul
+consul_enable_syslog: true
+consul_rejoin_after_leave: true
+consul_leave_on_terminate: true
+consul_datacenter: default
+consul_start_join: []
+consul_node_name: "{{ ansible_hostname }}"
+consul_domain: consul.
+consul_user: consul
+consul_user_groups: []
+consul_server: false
+consul_server_group: consul-server
+consul_bootstrap_expect: false
+consul_config_dir: /etc/{{ consul_service_name }}
+consul_data_dir: /var/{{ consul_service_name }}/data
+consul_ui_dir: /var/consul/ui/dist
+consul_enable_syslog: true
+consul_bind_addr: 0.0.0.0
+consul_client_addr: 0.0.0.0
+consul_advertise_device: ansible_eth0
+consul_advertise_addr: "{{ hostvars[inventory_hostname][consul_advertise_device]['ipv4']['address'] }}"
+consul_recursor: 8.8.8.8
+consul_rejoin_after_leave: true
+consul_dnsmasq_enabled: true
+
+consul_dns_port: 8600
+consul_http_port: 8500
+consul_rpc_port: 8400
+consul_serf_lan_port: 8301
+consul_serf_wan_port: 8302
+consul_server_port: 8300
+
+consul_services: []
+consul_checks: []

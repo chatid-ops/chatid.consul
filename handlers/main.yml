@@ -1,0 +1,10 @@
+---
+# handlers file for chatid.consul
+- name: restart consul
+  service: name=consul enabled=yes state=restarted
+
+- name: reload consul
+  shell: /bin/consul reload -rpc-addr=127.0.0.1:{{ consul_rpc_port }}
+
+- name: restart dnsmasq
+  service: name=dnsmasq state=restarted
