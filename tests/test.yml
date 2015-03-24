@@ -9,7 +9,7 @@
   roles:
   - role: chatid.consul
     consul_server: yes
-    consul_advertise_device: ansible_eth1
+    consul_advertise_addr: "{{ ansible_eth1['ipv4']['address'] }}"
     consul_bootstrap_expect: 3
     consul_service_name: consul
     consul_datacenter: aws-us-east-1
@@ -27,7 +27,7 @@
   roles:
   - role: chatid.consul
     consul_server: yes
-    consul_advertise_device: ansible_eth1
+    consul_advertise_addr: "{{ ansible_eth1['ipv4']['address'] }}"
     consul_bootstrap_expect: 3
     consul_service_name: consul-test
     consul_datacenter: aws-us-east-1-test
@@ -45,7 +45,7 @@
   roles:
   - role: chatid.consul
     consul_server: yes
-    consul_advertise_device: ansible_eth1
+    consul_advertise_addr: "{{ ansible_eth1['ipv4']['address'] }}"
     consul_bootstrap_expect: 3
     consul_service_name: consul-dev
     consul_datacenter: aws-us-east-1-dev
@@ -63,7 +63,7 @@
   roles:
   - role: chatid.consul
     consul_server: yes
-    consul_advertise_device: ansible_eth1
+    consul_advertise_addr: "{{ ansible_eth1['ipv4']['address'] }}"
     consul_bootstrap_expect: 3
     consul_service_name: consul-stage
     consul_datacenter: aws-us-east-1-stage
@@ -81,7 +81,7 @@
   roles:
   - role: chatid.consul
     consul_server: yes
-    consul_advertise_device: ansible_eth1
+    consul_advertise_addr: "{{ ansible_eth1['ipv4']['address'] }}"
     consul_bootstrap_expect: 3
     consul_service_name: consul-prod
     consul_datacenter: aws-us-east-1-prod
