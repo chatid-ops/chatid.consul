@@ -27,7 +27,8 @@ consul_ui_dir: /var/consul/ui/dist
 consul_enable_syslog: true
 consul_bind_addr: 0.0.0.0
 consul_client_addr: 0.0.0.0
-consul_advertise_addr: "{{ ansible_eth0['ipv4']['address'] }}"
+consul_advertise_device: ansible_eth0
+consul_advertise_addr: "{{ hostvars[inventory_hostname][consul_advertise_device]['ipv4']['address'] }}"
 consul_recursor: 8.8.8.8
 consul_rejoin_after_leave: true
 consul_dnsmasq_enabled: true
