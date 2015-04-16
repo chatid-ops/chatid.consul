@@ -11,8 +11,8 @@
 {% for item in consul_start_join %}
         "{{ hostvars[item][consul_advertise_device]['ipv4']['address'] }}"{{ ',' if not loop.last else '' }}
 {% endfor %}
-{% endif %}
     ],
+{% endif %}
     "ui_dir": "{{ consul_ui_dir }}",
     "bind_addr": "{{ consul_bind_addr }}",
     "client_addr": "{{ consul_client_addr }}",
