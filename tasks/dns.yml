@@ -6,6 +6,6 @@
   template: src=dnsmasq.conf dest=/etc/dnsmasq.d/10-{{ consul_service_name }}
   register: dnsmasq_config_result
 
-- name: dns | restart dnsmasq
-  service: name=dnsmasq state=restarted
+- name: dns | start/reload dnsmasq
+  service: name=dnsmasq state=reloaded enabled=true
   when: dnsmasq_config_result.changed
