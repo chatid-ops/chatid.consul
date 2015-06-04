@@ -16,13 +16,16 @@
   unarchive: src=/tmp/{{ consul_archive }} dest=/bin copy=no
   when: consul_was_downloaded.changed
 
+- name: install | create group
+  group: name={{ consul_group }} system=yes
+
 - name: install | create user
-  user: name={{ consul_user }} groups={{ consul_user_groups | join(',') }} system=yes
+  user: name={{ consul_user }} groups={{ consul_group }} system=yes
 
 - name: install | create directories
   file: >
     path={{ item }} state=directory
-    owner={{ consul_user }} group={{ consul_user }}
+    owner={{ consul_user }} group={{ consul_group }}
     recurse=true
   with_items:
     - "{{ consul_data_dir }}"
@@ -31,7 +34,7 @@
 - name: install | create ui directory
   file: >
     path={{ consul_ui_dir }} state=directory
-    owner={{ consul_user }} group={{ consul_user }}
+    owner={{ consul_user }} group={{ consul_group }}
     recurse=true
   changed_when: False
 
@@ -46,7 +49,7 @@
 - name: install | render config
   template: >
     src=consul.json dest={{ consul_config_dir }}/consul.json
-    owner={{ consul_user }} group={{ consul_user }}
+    owner={{ consul_user }} group={{ consul_group }}
   notify: reload consul
 
 - name: install | render upstart configs

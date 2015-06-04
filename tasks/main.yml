@@ -6,7 +6,7 @@
 - name: main | render service definitions
   template: >
     src=service.json dest={{ consul_config_dir }}/{{ item.name }}-service.json
-    owner={{ consul_user }} group={{ consul_user }}
+    owner={{ consul_user }} group={{ consul_group }}
   with_items: consul_services
   notify: reload consul
   tags: [configure]
@@ -14,7 +14,7 @@
 - name: main | render check definitions
   template: >
     src=check.json dest={{ consul_config_dir }}/{{ item.name }}-check.json
-    owner={{ consul_user }} group={{ consul_user }}
+    owner={{ consul_user }} group={{ consul_group }}
   with_items: consul_checks
   notify: reload consul
   tags: [configure]
