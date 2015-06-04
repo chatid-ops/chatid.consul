@@ -54,6 +54,3 @@
 
 - name: install | enable service
   service: name={{ consul_service_name }} enabled=yes state=started
-
-- name: install | install python-consul
-  easy_install: name=python-consul
