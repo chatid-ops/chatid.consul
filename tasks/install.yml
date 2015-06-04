@@ -54,6 +54,11 @@
 
 - name: install | render upstart configs
   template: src=upstart.conf dest=/etc/init/{{ consul_service_name }}.conf
+  when: ansible_distribution == "Ubuntu"
+
+- name: install | render systemd configs
+  template: src=consul.service dest=/etc/systemd/system/{{ consul_service_name }}.service
+  when: ansible_distribution != "Ubuntu"
 
 - name: install | enable service
   service: name={{ consul_service_name }} enabled=yes state=started
