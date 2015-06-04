@@ -8,8 +8,8 @@
 {% endif %}
 {% if consul_start_join|length > 0 %}
     "start_join": [
-{% for item in consul_start_join %}
-        "{{ hostvars[item][consul_advertise_device]['ipv4']['address'] }}"{{ ',' if not loop.last else '' }}
+{% for item in consul_start_join if hostvars[item].get('ansible_default_ipv4',{}).get('address') %}
+        "{{ hostvars[item]['ansible_default_ipv4']['address'] }}"{{ ',' if not loop.last else '' }}
 {% endfor %}
     ],
 {% endif %}
