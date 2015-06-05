@@ -9,6 +9,7 @@
 - name: dns | tell dhclient to use prefer dnsmasq
   command: "sed /etc/dhcp/dhclient.conf -i -e 's/#\\(prepend domain-name-servers 127\\.0\\.0\\.1;\\)/\\1/'"
   ignore_errors: yes
+  changed_when: False
   tags: [dhclient]
 
 - name: dns | start/reload dnsmasq
