@@ -6,6 +6,11 @@
   template: src=dnsmasq.conf dest=/etc/dnsmasq.d/10-{{ consul_service_name }}
   register: dnsmasq_config_result
 
+- name: dns | tell dhclient to use prefer dnsmasq
+  command: "sed /etc/dhcp/dhclient.conf -i -e 's/#\\(prepend domain-name-servers 127\\.0\\.0\\.1;\\)/\\1/'"
+  ignore_errors: yes
+  tags: [dhclient]
+
 - name: dns | start/reload dnsmasq
   service: name=dnsmasq state=reloaded enabled=true
   when: dnsmasq_config_result.changed
