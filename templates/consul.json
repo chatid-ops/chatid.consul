@@ -7,11 +7,7 @@
     "bootstrap_expect": {{ consul_bootstrap_expect }},
 {% endif %}
 {% if consul_start_join|length > 0 %}
-    "start_join": [
-{% for item in consul_start_join if hostvars[item].get('ansible_default_ipv4',{}).get('address') %}
-        "{{ hostvars[item]['ansible_default_ipv4']['address'] }}"{{ ',' if not loop.last else '' }}
-{% endfor %}
-    ],
+    "start_join": {{ consul_start_join | to_nice_json }},
 {% endif %}
     "ui_dir": "{{ consul_ui_dir }}",
     "bind_addr": "{{ consul_bind_addr }}",
