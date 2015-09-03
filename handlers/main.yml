@@ -1,10 +1,10 @@
 ---
 # handlers file for chatid.consul
 - name: restart consul
-  service: name=consul enabled=yes state=restarted
+  service: name={{ consul_service_name }} enabled=yes state=restarted
 
 - name: reload consul
-  service: name=consul state=reloaded
+  service: name={{ consul_service_name }} state=reloaded
 
 - name: restart dnsmasq
   service: name=dnsmasq state=restarted

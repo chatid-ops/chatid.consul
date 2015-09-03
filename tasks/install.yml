@@ -13,7 +13,11 @@
   register: consul_was_downloaded
 
 - name: install | unarchive
-  unarchive: src=/tmp/{{ consul_archive }} dest=/bin copy=no
+  unarchive: src=/tmp/{{ consul_archive }} dest=/tmp copy=no
+  when: consul_was_downloaded.changed
+
+- name: install | move consul into place
+  command: mv /tmp/consul {{ consul_bin }}
   when: consul_was_downloaded.changed
 
 - name: install | create group

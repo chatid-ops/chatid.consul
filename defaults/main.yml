@@ -8,6 +8,7 @@ consul_ui_archive_sha256sum: ad883aa52e1c0136ab1492bbcedad1210235f26d59719fb6de3
 consul_download: "https://dl.bintray.com/mitchellh/consul/{{ consul_archive }}"
 consul_ui_download: "https://dl.bintray.com/mitchellh/consul/{{ consul_ui_archive }}"
 
+consul_bin: /bin/consul
 consul_service_name: consul
 consul_enable_syslog: true
 consul_rejoin_after_leave: true

@@ -7,8 +7,8 @@ After=basic.target network.target
 User={{ consul_user }}
 Group={{ consul_group }}
 Environment=GOMAXPROCS={{ ansible_processor_count }}
-ExecStart=/bin/consul agent -config-dir {{ consul_config_dir }}
-ExecReload=/bin/consul reload -rpc-addr=127.0.0.1:{{ consul_rpc_port }}
+ExecStart={{ consul_bin }} agent -config-dir {{ consul_config_dir }}
+ExecReload={{ consul_bin }} reload -rpc-addr=127.0.0.1:{{ consul_rpc_port }}
 KillMode=process
 Restart=on-failure
 RestartSec=42s
