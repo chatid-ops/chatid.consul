@@ -18,6 +18,3 @@
   with_items: consul_checks
   notify: reload consul
   tags: [configure]
-
-- include: dns.yml
-  tags: [configure]
