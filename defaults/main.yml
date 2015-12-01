@@ -10,8 +10,6 @@ consul_ui_download: "https://dl.bintray.com/mitchellh/consul/{{ consul_ui_archiv
 
 consul_bin: /bin/consul
 consul_service_name: consul
-consul_enable_syslog: true
-consul_rejoin_after_leave: true
 consul_leave_on_terminate: true
 consul_datacenter: default
 consul_start_join: []
@@ -31,7 +29,6 @@ consul_client_addr: 0.0.0.0
 consul_advertise_addr: "{{ ansible_default_ipv4.address }}"
 consul_recursor: 8.8.8.8
 consul_rejoin_after_leave: true
-consul_dnsmasq_enabled: true
 
 consul_dns_port: 8600
 consul_http_port: 8500
