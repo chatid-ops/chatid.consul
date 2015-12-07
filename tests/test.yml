@@ -4,101 +4,13 @@
 # cluster/datacenter.
 
 - hosts: all
-  sudo: true
+  become: yes
+  become_user: root
 
-  roles:
-  - role: chatid.consul
+  vars:
     consul_server: yes
     consul_advertise_addr: "{{ ansible_eth1['ipv4']['address'] }}"
-    consul_bootstrap_expect: 3
-    consul_service_name: consul
-    consul_datacenter: aws-us-east-1
-    consul_dns_port: 6300
-    consul_http_port: 6200
-    consul_rpc_port: 6100
-    consul_serf_lan_port: 6002
-    consul_serf_wan_port: 6001
-    consul_server_port: 6000
-    consul_start_join: "{{ groups['all'] }}"
-
-- hosts: all
-  sudo: true
+    consul_bootstrap_expect: "{{ consul_start_join | length }}"
 
   roles:
-  - role: chatid.consul
-    consul_server: yes
-    consul_advertise_addr: "{{ ansible_eth1['ipv4']['address'] }}"
-    consul_bootstrap_expect: 3
-    consul_service_name: consul-test
-    consul_datacenter: aws-us-east-1-test
-    consul_dns_port: 5300
-    consul_http_port: 5200
-    consul_rpc_port: 5100
-    consul_serf_lan_port: 5002
-    consul_serf_wan_port: 5001
-    consul_server_port: 5000
-    consul_start_join: "{{ groups['all'] }}"
-
-- hosts: all
-  sudo: true
-
-  roles:
-  - role: chatid.consul
-    consul_server: yes
-    consul_advertise_addr: "{{ ansible_eth1['ipv4']['address'] }}"
-    consul_bootstrap_expect: 3
-    consul_service_name: consul-dev
-    consul_datacenter: aws-us-east-1-dev
-    consul_dns_port: 4300
-    consul_http_port: 4200
-    consul_rpc_port: 4100
-    consul_serf_lan_port: 4002
-    consul_serf_wan_port: 4001
-    consul_server_port: 4000
-    consul_start_join: "{{ groups['all'] }}"
-
-- hosts: all
-  sudo: true
-
-  roles:
-  - role: chatid.consul
-    consul_server: yes
-    consul_advertise_addr: "{{ ansible_eth1['ipv4']['address'] }}"
-    consul_bootstrap_expect: 3
-    consul_service_name: consul-stage
-    consul_datacenter: aws-us-east-1-stage
-    consul_dns_port: 3300
-    consul_http_port: 3200
-    consul_rpc_port: 3100
-    consul_serf_lan_port: 3002
-    consul_serf_wan_port: 3001
-    consul_server_port: 3000
-    consul_start_join: "{{ groups['all'] }}"
-
-- hosts: all
-  sudo: true
-
-  roles:
-  - role: chatid.consul
-    consul_server: yes
-    consul_advertise_addr: "{{ ansible_eth1['ipv4']['address'] }}"
-    consul_bootstrap_expect: 3
-    consul_service_name: consul-prod
-    consul_datacenter: aws-us-east-1-prod
-    consul_dns_port: 2300
-    consul_http_port: 2200
-    consul_rpc_port: 2100
-    consul_serf_lan_port: 2002
-    consul_serf_wan_port: 2001
-    consul_server_port: 2000
-    consul_start_join: "{{ groups['all'] }}"
-
-- hosts: all
-  tasks:
-   - name: join consul datacenters
-     command: consul join -rpc-addr 127.0.0.1:6100 -wan 127.0.0.1:{{ item }}
-     with_items:
-       - 2001
-       - 3001
-       - 4001
-       - 5001
+    - role: "{{ role_name }}"

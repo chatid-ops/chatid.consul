@@ -1,25 +1,4 @@
 ---
-- name: install | utils
-  apt: name={{ item }} update_cache=yes cache_valid_time=86400
-  with_items:
-    - unzip
-    - python-setuptools
-
-- name: install | install python-consul
-  easy_install: name=python-consul
-
-- name: install | download
-  get_url: url={{ consul_download }} dest=/tmp sha256sum={{ consul_archive_sha256sum }}
-  register: consul_was_downloaded
-
-- name: install | unarchive
-  unarchive: src=/tmp/{{ consul_archive }} dest=/tmp copy=no
-  when: consul_was_downloaded.changed
-
-- name: install | move consul into place
-  command: mv /tmp/consul {{ consul_bin }}
-  when: consul_was_downloaded.changed
-
 - name: install | create group
   group: name={{ consul_group }} system=yes
 
@@ -34,35 +13,34 @@
   with_items:
     - "{{ consul_data_dir }}"
     - "{{ consul_config_dir }}"
+    - "{{ consul_ui_dir }}"
 
-- name: install | create ui directory
-  file: >
-    path={{ consul_ui_dir }} state=directory
+- name: install | utils
+  apt: name={{ item }} update_cache=yes cache_valid_time=86400
+  with_items:
+    - unzip
+    - python-setuptools
+
+- name: install | install python-consul
+  easy_install: name=python-consul
+
+- name: install | download
+  get_url: url={{ consul_download }} dest=/tmp sha256sum={{ consul_archive_sha256sum }}
+  register: consul_download_result
+
+- name: install | unarchive
+  unarchive: >
+    src=/tmp/{{ consul_archive }} dest=/bin copy=no
     owner={{ consul_user }} group={{ consul_group }}
-    recurse=true
-  changed_when: False
+  when: consul_download_result.changed
 
 - name: install | download consul ui
   get_url: url={{ consul_ui_download }}  dest=/tmp sha256sum={{ consul_ui_archive_sha256sum }}
   register: consul_ui_was_downloaded
+  when: consul_server|bool
 
 - name: install | copy and unpack consul ui
-  unarchive: src=/tmp/{{ consul_ui_archive }} dest=/var/consul/ui copy=no
-  when: consul_ui_was_downloaded.changed
-
-- name: install | render config
-  template: >
-    src=consul.json dest={{ consul_config_dir }}/consul.json
+  unarchive: >
+    src=/tmp/{{ consul_ui_archive }} dest=/var/consul/ui copy=no
     owner={{ consul_user }} group={{ consul_group }}
-  notify: reload consul
-
-- name: install | render upstart configs
-  template: src=upstart.conf dest=/etc/init/{{ consul_service_name }}.conf
-  when: ansible_distribution == "Ubuntu"
-
-- name: install | render systemd configs
-  template: src=consul.service dest=/etc/systemd/system/{{ consul_service_name }}.service
-  when: ansible_distribution != "Ubuntu"
-
-- name: install | enable service
-  service: name={{ consul_service_name }} enabled=yes state=started
+  when: consul_ui_was_downloaded.changed

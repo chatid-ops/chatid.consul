@@ -1,22 +1,23 @@
 ---
 # defaults file for chatid.consul
 consul_version: 0.5.2
-consul_archive: "{{ consul_version }}_linux_amd64.zip"
+consul_archive: "consul_{{ consul_version }}_linux_amd64.zip"
 consul_archive_sha256sum: 171cf4074bfca3b1e46112105738985783f19c47f4408377241b868affa9d445
-consul_ui_archive: "{{ consul_version }}_web_ui.zip"
+consul_ui_archive: "consul_{{ consul_version }}_web_ui.zip"
 consul_ui_archive_sha256sum: ad883aa52e1c0136ab1492bbcedad1210235f26d59719fb6de3ef6464f1ff3b1
-consul_download: "https://dl.bintray.com/mitchellh/consul/{{ consul_archive }}"
-consul_ui_download: "https://dl.bintray.com/mitchellh/consul/{{ consul_ui_archive }}"
+consul_download: "https://releases.hashicorp.com/consul/{{ consul_version }}/{{ consul_archive }}"
+consul_ui_download: "https://releases.hashicorp.com/consul/{{ consul_version }}/{{ consul_ui_archive }}"
 
 consul_bin: /bin/consul
+consul_user: consul
+consul_group: consul
 consul_service_name: consul
+
 consul_leave_on_terminate: true
 consul_datacenter: default
 consul_start_join: []
 consul_node_name: "{{ ansible_hostname }}"
 consul_domain: consul.
-consul_user: consul
-consul_group: consul
 consul_server: false
 consul_server_group: consul-server
 consul_bootstrap_expect: false
@@ -36,6 +37,3 @@ consul_rpc_port: 8400
 consul_serf_lan_port: 8301
 consul_serf_wan_port: 8302
 consul_server_port: 8300
-
-consul_services: []
-consul_checks: []
