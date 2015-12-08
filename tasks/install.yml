@@ -3,7 +3,7 @@
   group: name={{ consul_group }} system=yes
 
 - name: install | create user
-  user: name={{ consul_user }} group={{ consul_group }} system=yes
+  user: name={{ consul_user }} group={{ consul_group }} groups="{{ consul_groups|join(',') }}" system=yes
 
 - name: install | create directories
   file: >

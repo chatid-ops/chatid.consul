@@ -11,6 +11,7 @@ consul_ui_download: "https://releases.hashicorp.com/consul/{{ consul_version }}/
 consul_bin: /bin/consul
 consul_user: consul
 consul_group: consul
+consul_groups: []
 consul_service_name: consul
 
 consul_leave_on_terminate: true
