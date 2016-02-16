@@ -25,7 +25,7 @@
   easy_install: name=python-consul
 
 - name: install | download
-  get_url: url={{ consul_download }} dest=/tmp sha256sum={{ consul_archive_sha256sum }}
+  get_url: url={{ consul_download }} dest=/tmp
   register: consul_download_result
 
 - name: install | unarchive
@@ -35,7 +35,7 @@
   when: consul_download_result.changed
 
 - name: install | download consul ui
-  get_url: url={{ consul_ui_download }}  dest=/tmp sha256sum={{ consul_ui_archive_sha256sum }}
+  get_url: url={{ consul_ui_download }}  dest=/tmp
   register: consul_ui_was_downloaded
   when: consul_server|bool
 

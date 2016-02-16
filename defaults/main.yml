@@ -1,10 +1,8 @@
 ---
 # defaults file for chatid.consul
-consul_version: 0.5.2
+consul_version: 0.6.3
 consul_archive: "consul_{{ consul_version }}_linux_amd64.zip"
-consul_archive_sha256sum: 171cf4074bfca3b1e46112105738985783f19c47f4408377241b868affa9d445
 consul_ui_archive: "consul_{{ consul_version }}_web_ui.zip"
-consul_ui_archive_sha256sum: ad883aa52e1c0136ab1492bbcedad1210235f26d59719fb6de3ef6464f1ff3b1
 consul_download: "https://releases.hashicorp.com/consul/{{ consul_version }}/{{ consul_archive }}"
 consul_ui_download: "https://releases.hashicorp.com/consul/{{ consul_version }}/{{ consul_ui_archive }}"
 
