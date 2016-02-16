@@ -53,7 +53,7 @@
 
 - name: install | create UI directory
   file:
-    path: /var/consul/ui/
+    path: "{{ consul_ui_dir }}"
     state: directory
     owner: "{{ consul_user }}"
     group: "{{ consul_group }}"
@@ -68,7 +68,7 @@
 - name: install | copy and unpack consul ui
   unarchive:
     src: "/tmp/{{ consul_ui_archive }}"
-    dest: /var/consul/ui/
+    dest: "{{ consul_ui_dir }}"
     copy: no
     owner: "{{ consul_user }}"
     group: "{{ consul_group }}"
