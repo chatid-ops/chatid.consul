@@ -1,16 +1,22 @@
 ---
 - name: service | render config
-  template: >
-    src=consul.json dest={{ consul_config_dir }}/consul.json
-    owner={{ consul_user }} group={{ consul_group }}
+  template:
+    src: consul.json
+    dest: "{{ consul_config_dir }}/consul.json"
+    owner: "{{ consul_user }}"
+    group: "{{ consul_group }}"
   register: consul_config_result
 
 - name: service | render upstart configs
-  template: src=upstart.conf dest=/etc/init/{{ consul_service_name }}.conf
+  template:
+    src: upstart.conf
+    dest: "/etc/init/{{ consul_service_name }}.conf"
   when: ansible_distribution == "Ubuntu"
 
 - name: service | render systemd configs
-  template: src=consul.service dest=/etc/systemd/system/{{ consul_service_name }}.service
+  template:
+    src: consul.service
+    dest: "/etc/systemd/system/{{ consul_service_name }}.service"
   when: ansible_distribution != "Ubuntu"
 
 - name: service | enable service
