@@ -8,14 +8,8 @@
   become_user: root
 
   vars:
-    consul_server: yes
-    consul_advertise_addr: "{{ ansible_eth1['ipv4']['address'] }}"
-    consul_bootstrap_expect: "{{ consul_start_join | length }}"
-
-  pre_tasks:
-    - file:
-        path: /tmp/consul_0.6.3_web_ui.zip
-        state: absent
+    environment: "local"
+    region: "us-east-1"
 
   roles:
     - role: "{{ role_name }}"

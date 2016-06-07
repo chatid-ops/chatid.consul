@@ -3,13 +3,9 @@
     "domain": "{{ consul_domain }}",
     "node_name": "{{ consul_node_name }}",
     "server": {{ consul_server | bool | to_nice_json }},
-{% if consul_server and consul_bootstrap_expect %}
+    "retry-join": "{{ consul_retry_join }}",
     "bootstrap_expect": {{ consul_bootstrap_expect }},
-{% endif %}
-{% if consul_start_join|length > 0 %}
-    "start_join": {{ consul_start_join | to_nice_json }},
-{% endif %}
-    "ui_dir": "{{ consul_ui_dir }}",
+    "ui": {{ consul_ui | bool | to_nice_json }},
     "bind_addr": "{{ consul_bind_addr }}",
     "client_addr": "{{ consul_client_addr }}",
     "advertise_addr": "{{ consul_advertise_addr }}",

@@ -1,0 +1,7 @@
+---
+- name: Create Consul Config
+  template: src=templates/consul.json dest=/consul/consul.json owner=root group=root mode=0644
+
+- name: Start Consul Server Docker Container
+  script: scripts/run.sh
+  sudo: yes
