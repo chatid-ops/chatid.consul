@@ -1,7 +1,0 @@
----
-# tasks file for chatid.consul
-- include: install.yml
-  tags: [install]
-
-- include: service.yml
-  tags: [service]

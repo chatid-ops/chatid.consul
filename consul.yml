@@ -1,0 +1,6 @@
+---
+- name: Configure Consul Server
+  hosts: tag_env_{{ env }}:&tag_service_consul
+  serial: 1
+  roles:
+  - consul

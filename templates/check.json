@@ -1,3 +1,0 @@
-{
-  "check": {{ item | to_json }}
-}
