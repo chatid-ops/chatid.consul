@@ -3,7 +3,7 @@
     "domain": "{{ consul_domain }}",
     "node_name": "{{ consul_node_name }}",
     "server": {{ consul_server | bool | to_nice_json }},
-    "retry-join": "{{ cosule_retry_join }}",
+    "retry-join": "{{ consul_retry_join }}",
     "bootstrap_expect": {{ consul_bootstrap_expect }},
     "ui": {{ consul_ui | bool | to_nice_json }},
     "bind_addr": "{{ consul_bind_addr }}",
