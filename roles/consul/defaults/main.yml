@@ -1,0 +1,30 @@
+---
+region: "us-east-1"
+
+consul_version: 0.6.4
+
+consul_datacenter: "aws-{{ region }}-{{ environment }}"
+consul_retry_join: "{{ environment }}-consul.quartethealth.com"
+consul_node_name: "{{ ansible_hostname }}"
+consul_domain: consul.
+consul_server: true
+consul_bootstrap_expect: 3
+consul_config_dir: /consul/config
+consul_data_dir: /consul/data
+consul_ui: true
+consul_enable_syslog: true
+consul_bind_addr: 0.0.0.0
+consul_client_addr: 0.0.0.0
+consul_advertise_addr: 0.0.0.0
+consul_recursor: 8.8.8.8
+consul_rejoin_after_leave: true
+consul_leave_on_terminate: false
+consul_skip_leave_on_terminate: true
+
+
+consul_dns_port: 8600
+consul_http_port: 8500
+consul_rpc_port: 8400
+consul_serf_lan_port: 8301
+consul_serf_wan_port: 8302
+consul_server_port: 8300
