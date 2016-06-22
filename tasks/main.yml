@@ -4,4 +4,4 @@
   tags: [install]
 
 - include: service.yml
-  tags: [service]
+  tags: [service, consul-service]
